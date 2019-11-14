@@ -2251,25 +2251,18 @@
 
 		_t.startSubscriber = function(response) {
 			var
-				responseJSON,
 				subscribeLocation,
 				subscribeLocationArray,
 				sitemap,
 				subscriptionId,
 				page;
 
-			try {
-				responseJSON = JSON.parse(response.responseText);
-			} catch (e) {
-				return;
-			}
-
-			if (responseJSON.status !== "CREATED") {
+			if (response.status !== 201) {
 				return;
 			}
 
 			try {
-				subscribeLocation = responseJSON.context.headers.Location[0];
+				subscribeLocation = response.getResponseHeader("Location");
 			} catch (e) {
 				return;
 			}
